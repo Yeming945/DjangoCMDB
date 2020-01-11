@@ -1,7 +1,7 @@
 astroid==2.2.5
 autopep8==1.4.4
 colorama==0.4.1
-Django==3.0.2
+Django==2.2.8
 django-ranged-response==0.2.0
 django-simple-captcha==0.5.12
 isort==4.3.21
