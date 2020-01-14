@@ -5,7 +5,7 @@ from assets import models
 
 
 class NewAssetAdmin(admin.ModelAdmin):
-    list_disply = [
+    list_display = [
         'asset_type', 'sn', 'model', 'manufacturer', 'c_time', 'm_time'
     ]
     list_filter = ['asset_type', 'manufacturer', 'c_time']

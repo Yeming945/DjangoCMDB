@@ -563,7 +563,6 @@ class NewAssetApprovalZone(models.Model):
                                   default='server',
                                   max_length=64,
                                   blank=True,
-                                  null=True,
                                   verbose_name='资产类型')
     manufacturer = models.CharField(max_length=64,
                                     blank=True,

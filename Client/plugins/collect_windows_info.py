@@ -24,10 +24,8 @@ class Win32Info(object):
             'os_release':
             "%s %s %s" % (platform.release(), platform.architecture()[0],
                           platform.version()),
-            'os_distribution':
-            'Microsoft',
-            'assert_type':
-            'server'
+            'os_distribution': 'Microsoft',
+            'asset_type': 'server'
         }
         # 分别获取各种硬件信息
         data.update(self.get_cpu_info())
@@ -73,12 +71,15 @@ class Win32Info(object):
     def get_motherboard_info(self):
         """ 获取主板信息 """
         computer_info = self.wmi_obj.Win32_ComputerSystem()[0]
-        system_info = self.wmi_obj.Win32_OperatingSystem()[0]
+        # 这里的SN没有采用博主的方法
+        # system_info = self.wmi_obj.Win32_OperatingSystem()[0]
+        system_info = self.wmi_obj.Win32_BaseBoard()[0].SerialNumber.strip()
         data = {}
         data['manufacturer'] = computer_info.Manufacturer
         data['model'] = computer_info.Model
         data['wake_up_type'] = computer_info.WakeUpType
-        data['sn'] = system_info.SerialNumber
+        # data['sn'] = system_info.SerialNumber
+        data['sn'] = system_info
         return data
 
     def get_disk_info(self):
