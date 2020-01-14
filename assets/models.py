@@ -576,7 +576,7 @@ class NewAssetApprovalZone(models.Model):
     ram_size = models.PositiveIntegerField(blank=True,
                                            null=True,
                                            verbose_name='内存大小')
-    cup_model = models.CharField(max_length=128,
+    cpu_model = models.CharField(max_length=128,
                                  blank=True,
                                  null=True,
                                  verbose_name='CPU型号')

@@ -2,7 +2,7 @@ import json
 import time
 import urllib.parse
 import urllib.request
-from core import info_collection
+from . import info_collection
 from conf import settings
 
 
@@ -37,6 +37,13 @@ class ArgvHandler(object):
 
     @staticmethod
     def collect_data():
+        """ 收集硬件信息, 用于测试 """
+        info = info_collection.InfoCollection()
+        asset_data = info.collect()
+        print(asset_data)
+
+    @staticmethod
+    def report_data():
         """
         收集硬件信息, 然后发送到服务器
         :return:
@@ -48,7 +55,7 @@ class ArgvHandler(object):
         data = {"asset_data": json.dumps(asset_data)}
         # 根据settings中的配置, 构造url
         url = "http://%s:%s%s" % (settings.Params['server'],
-                                  settings.Params['port'], settings.Params['request_timeout'])
+                                  settings.Params['port'], settings.Params['url'])
         print('正在将数据发送至: [%s].........' % url)
         try:
             # 使用Python内置的urllib.request库, 发送post请求
@@ -60,7 +67,7 @@ class ArgvHandler(object):
             message = respose.read().decode()
             print('返回结果: %s' % message)
         except Exception as e:
-            message = '发送失败' + '错误原因:   '.format(e)
+            message = '发送失败' + '错误原因:   {}'.format(e)
             print("\033[31;1m发送失败，错误原因： %s\033[0m" % e)
         with open(settings.PATH, 'ab') as f:  # 以byte的方式写入, 防止出现编码错误
             log = '发送时间: %s \t 服务器地址: %s \t 返回结果: %s \n' % (

@@ -3,8 +3,8 @@ from django.shortcuts import render, HttpResponse
 # Create your views here.
 from django.views.decorators.csrf import csrf_exempt
 import json
-from assets import models
-from assets import asset_handler
+from . import models
+from . import asset_handler
 
 
 @csrf_exempt
