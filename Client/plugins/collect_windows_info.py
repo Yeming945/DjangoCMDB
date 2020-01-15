@@ -24,12 +24,15 @@ class Win32Info(object):
             'os_release':
             "%s %s %s" % (platform.release(), platform.architecture()[0],
                           platform.version()),
-            'os_distribution': 'Microsoft',
-            'asset_type': 'server'
+            'os_distribution':
+            'Microsoft',
+            'asset_type':
+            'server'
         }
         # 分别获取各种硬件信息
         data.update(self.get_cpu_info())
         data.update(self.get_ram_info())
+        data.update(self.get_ram_size())
         data.update(self.get_motherboard_info())
         data.update(self.get_disk_info())
         data.update(self.get_nic_info())
@@ -67,6 +70,16 @@ class Win32Info(object):
             }
             data.append(item_data)  # 将每条内存的信息，添加到一个列表里
         return {'RAM': data}  # 再对data列表封装一层，返回一个字典，方便上级方法的调用
+
+    def get_ram_size(self):
+        """ 获取内存合计容量 """
+        ram_into = self.get_ram_info()
+        ram_size = 0
+        for i in range(len(ram_into['RAM'])):
+            solo_size = dict(ram_into['RAM'][i])
+            ram = solo_size['capacity']
+            ram_size += ram
+        return {'ram_size': ram_size}
 
     def get_motherboard_info(self):
         """ 获取主板信息 """
